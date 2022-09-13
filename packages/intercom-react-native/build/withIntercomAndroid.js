@@ -221,10 +221,11 @@ const modifyMainApplication = ({ contents, apiKey, appId, packageName, }) => {
         contents = contents.replace(`${packageImport}`, `${packageImport}\n${importLine}`);
     }
     const initLine = `IntercomModule.initialize(this, "${apiKey}", "${appId}");`;
+    const logLine = `Log.i('Intercom', 'log')`;
     if (!contents.includes(initLine)) {
         const soLoaderLine = `SoLoader.init(this, /* native exopackage */ false);`;
         // Replace the line SoLoader.init(this, /* native exopackage */ false); with regex
-        contents = contents.replace(`${soLoaderLine}`, `${soLoaderLine}\n\t\t${initLine}\n`);
+        contents = contents.replace(`${soLoaderLine}`, `${soLoaderLine}\n\t\t${initLine}\n\t\t${logLine}`);
     }
     return contents;
 };
