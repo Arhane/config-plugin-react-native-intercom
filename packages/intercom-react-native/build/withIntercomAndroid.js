@@ -150,6 +150,14 @@ const withIntercomAppBuildGradle = (config, { pushNotifications }) => {
             offset: 1,
             comment: "//",
         }).contents;
+        config.modResults.contents = (0, generateCode_1.mergeContents)({
+            tag: 'intercom-implementation',
+            src: config.modResults.contents,
+            newSrc: "    implementation project(':intercom-react-native')",
+            anchor: /dependencies\s*\{/,
+            offset: 1,
+            comment: '//',
+        }).contents;
         if (pushNotifications) {
             const firebaseImp = `implementation 'com.google.firebase:firebase-messaging:20.2.+'`;
             if (!config.modResults.contents.includes(firebaseImp)) {

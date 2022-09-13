@@ -181,6 +181,14 @@ export const withIntercomAppBuildGradle: ConfigPlugin<{ pushNotifications: boole
       offset: 1,
       comment: "//",
     }).contents;
+    config.modResults.contents = mergeContents({
+      tag: 'intercom-implementation',
+      src: config.modResults.contents,
+      newSrc: "    implementation project(':intercom-react-native')",
+      anchor: /dependencies\s*\{/,
+      offset: 1,
+      comment: '//',
+    }).contents;
     if (pushNotifications) {
       const firebaseImp = `implementation 'com.google.firebase:firebase-messaging:20.2.+'`;
       if (!config.modResults.contents.includes(firebaseImp)) {
